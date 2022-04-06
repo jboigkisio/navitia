@@ -50,7 +50,7 @@ def get_tag_name(version):
 
 
 class ReleaseManager:
-    def __init__(self, release_type, remote_name="canalTP"):
+    def __init__(self, release_type, remote_name="hove-io"):
         self.directory = ".."
         self.changelog_filename = self.directory + "/debian/changelog"
         self.data_version_filename = self.directory + "/source/type/data.cpp"
@@ -198,7 +198,7 @@ class ReleaseManager:
         page = 1
         while True:
             query = (
-                "https://api.github.com/repos/CanalTP/navitia/"
+                "https://api.github.com/repos/hove-io/navitia/"
                 "pulls?state=closed&base=dev&sort=updated&direction=desc&page={page}".format(page=page)
             )
             print("query github api: " + query)
@@ -423,13 +423,13 @@ if __name__ == '__main__':
 
     if len(argv) < 1:
         print("mandatory argument: {regular|major|minor|hotfix}")
-        print("possible additional argument: remote (default is CanalTP)")
+        print("possible additional argument: remote (default is hove-io)")
         exit(5)
 
     logging.basicConfig(level=logging.INFO)
 
     release_type = get_release_type()
-    remote = argv[1] if len(argv) >= 2 else "CanalTP"
+    remote = argv[1] if len(argv) >= 2 else "hove-io"
 
     manager = ReleaseManager(release_type, remote_name=remote)
 
