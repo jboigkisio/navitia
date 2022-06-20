@@ -1,0 +1,122 @@
+<h1 id='errors'>Errors</h1><h2 id='code-40x'>Code 40x</h2>
+<p>When Navitia is unable to give an answer, you&#39;ll receive a response with an error object
+containing a unique error id, in a 4XX http code response</p>
+<div class="highlight"><pre class="highlight shell tab-shell"><code><span class="c">#request</span>
+<span class="nv">$ </span>curl <span class="s1">'https://api.navitia.io/v1/coverage/sandbox/stop_areas/wrong-one'</span> <span class="nt">-H</span> <span class="s1">'Authorization: 3b036afe-0110-4202-b9ed-99718476c2e0'</span>
+
+<span class="c">#response</span>
+HTTP/1.1 404 OK
+
+<span class="o">{</span>
+    <span class="s2">"error"</span>: <span class="o">{</span>
+        <span class="s2">"id"</span>: <span class="s2">"bad_filter"</span>,
+        <span class="s2">"message"</span>: <span class="s2">"ptref : Filters: Unable to find object"</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div>
+<p>The are two possible 40x http codes:</p>
+
+<ul>
+<li>  Code 404: unable to find an object</li>
+</ul>
+
+<table><thead>
+<tr>
+<th>Error id</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>date_out_of_bounds</td>
+<td>When the given date is out of bounds of the production dates of the region</td>
+</tr>
+<tr>
+<td>no_origin</td>
+<td>Couldn&#39;t find an origin for the journeys</td>
+</tr>
+<tr>
+<td>no_destination</td>
+<td>Couldn&#39;t find a destination for the journeys</td>
+</tr>
+<tr>
+<td>no_origin_nor_destination</td>
+<td>Couldn&#39;t find neither origin nor destination for the journeys</td>
+</tr>
+<tr>
+<td>unknown_object</td>
+<td>Couldn&#39;t find one of the request parameters. It can be the region, the API or a PT object</td>
+</tr>
+</tbody></table>
+
+<ul>
+<li>  Code 400: bad request</li>
+</ul>
+
+<table><thead>
+<tr>
+<th>Error id</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>bad_filter</td>
+<td>When you use a custom filter</td>
+</tr>
+<tr>
+<td>unable_to_parse</td>
+<td>When you use a mal-formed custom filter</td>
+</tr>
+<tr>
+<td>unknown_api</td>
+<td>When you request an inexistant endpoint</td>
+</tr>
+<tr>
+<td>bad_format</td>
+<td>When you provide ill-formated parameter (coord for example)</td>
+</tr>
+<tr>
+<td>config_exception</td>
+<td>When you try to configure an external service (street network back-end or autocomplete) with wrong parameters</td>
+</tr>
+</tbody></table>
+<h2 id='code-200'>Code 200</h2>
+<p>Even if everything is correct (input parameters, internal processing)
+Navitia can end up finding that the correct answer is empty.</p>
+
+<table><thead>
+<tr>
+<th>Error id</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>no_solution</td>
+<td>From data, there is no solution available given the request</td>
+</tr>
+</tbody></table>
+<h2 id='code-50x'>Code 50x</h2>
+<p>Ouch. Technical issue :/</p>
+
+<table><thead>
+<tr>
+<th>Error id</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>internal_error</td>
+<td>Something bad and unexpected has happened internally</td>
+</tr>
+<tr>
+<td>service_unavailable</td>
+<td>Navitia isn&#39;t responding</td>
+</tr>
+<tr>
+<td>dead_socket</td>
+<td>The requested region isn&#39;t responding</td>
+</tr>
+<tr>
+<td>technical_error</td>
+<td>An external service (street network back-end or autocomplete) isn&#39;t responding</td>
+</tr>
+</tbody></table>
